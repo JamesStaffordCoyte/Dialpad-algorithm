@@ -1,4 +1,4 @@
-const {getPosition, check, combine} = require('./utils/helpers.js');
+const {getPosition, check, combine, combineMany} = require('./utils/helpers.js');
 
 // Dialpad data structure
 const dialpad = [
@@ -155,8 +155,17 @@ function cycle(n) {
     updatedResults = results.filter((item, index) => {
       return results.indexOf(item) === index;
     });
-    // Add the result to each element in output
-    output = combine(output, updatedResults);
+
+
+    if (updatedResults.length === 4) {
+      results = updatedResults.splice(0, 2);
+
+
+      output = combineMany(output, results, updatedResults);
+    } else {
+      // Add the result to each element in output
+      output = combine(output, updatedResults);
+    }
     //// increase count and check the inputed amount
     count++;
     if (n % 3 === 1 && count === n ) { break; }
@@ -196,4 +205,5 @@ cycle(Number(process.argv[2]));
 
 // Output to console
 console.log(`There are ${output.length} qualifying ${process.argv[2]}-digit numbers.`)
+console.log(output.length);
 console.log(output);

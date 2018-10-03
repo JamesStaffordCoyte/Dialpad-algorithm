@@ -37,4 +37,24 @@ let combine = (firstArr, secondArr) => {
   return newArr;
 }
 
-module.exports = {getPosition, check, combine};
+// combines two arrays by string elements
+let combineMany = (firstArr, secondArr, thirdArr) => {
+  let newArr = [];
+  // grab first half of first Arr
+  let split = firstArr.splice(0, firstArr.length / 2);
+  // adds the second Arr to first half
+  secondArr.forEach((secondItem) => {
+    split.forEach((splitItem) => {
+      newArr.push(splitItem + secondItem.toString());
+    });
+  });
+  // adds third Arr to second half
+  thirdArr.forEach((thirdItem) => {
+    firstArr.forEach((firstItem) => {
+      newArr.push(firstItem + thirdItem.toString());
+    });
+  });
+  return newArr;
+}
+
+module.exports = {getPosition, check, combine, combineMany};
