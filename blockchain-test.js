@@ -1,3 +1,5 @@
+const {getPosition, check, combine} = require('./utils/helpers.js');
+
 // Dialpad data structure
 const dialpad = [
   [1, 2, 3],
@@ -10,27 +12,6 @@ const dialpad = [
 let cursor = 0;
 // cursor starting at 0
 let output = [cursor.toString()];
-
-// get the position index given cursor
-function getPosition(cursor) {
-  for (let i = 0; i < dialpad.length; i++) {
-    for (let j = 0; j < dialpad[i].length; j++) {
-      if (dialpad[i][j] === cursor) {
-        return [i, j];
-      }
-    }
-  }
-}
-
-// helper to check whether moving in a certain direction exists on the dialpad
-function check(outer, inner) {
-  if (dialpad[outer]) {
-    if (dialpad[outer][inner]){
-      return true;
-    }
-  }
-  return false;
-}
 
 // two steps in one direction followed by one step in the perpendicular direction
 function tallL() {
@@ -160,17 +141,6 @@ function shortL() {
   return returnedNumbers;
 }
 
-// combines two arrays by string elements
-function combine(firstArr, secondArr) {
-  let newArr = [];
-  secondArr.forEach((secondItem) => {
-    firstArr.forEach((firstItem) => {
-      newArr.push(firstItem + secondItem.toString());
-    });
-  });
-  return newArr;
-}
-
 // Cycles through the TallL and the two ShortLs
 function cycle(n) {
   let count = 0;
@@ -221,6 +191,9 @@ function cycle(n) {
   }
 }
 
+// Call the program with command line argument
 cycle(Number(process.argv[2]));
 
+// Output to console
+console.log(`There are ${output.length} qualifying ${process.argv[2]}-digit numbers.`)
 console.log(output);

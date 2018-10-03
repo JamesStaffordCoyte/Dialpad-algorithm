@@ -1,3 +1,10 @@
+const dialpad = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [null, 0, null]
+]
+
 // get the position index given cursor
 let getPosition = (cursor) => {
   for (let i = 0; i < dialpad.length; i++) {
