@@ -2,7 +2,7 @@ const dialpad = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9],
-  [null, 0, null]
+  ['*', 0, '#']
 ]
 
 // get the position index given cursor
@@ -19,21 +19,23 @@ let getPosition = (cursor) => {
 // helper to check whether moving in a certain direction exists on the dialpad
 let check = (outer, inner) => {
   if (dialpad[outer]) {
-    if (dialpad[outer][inner]){
+    if (Number.isInteger(dialpad[outer][inner])){
       return true;
+    } else if ((dialpad[outer][inner] === '*') || (dialpad[outer][inner] === '*')){
+      return false;
     }
   }
   return false;
 }
 
 // combines two arrays by string elements
-let combine = (firstArr, secondArr) => {
+let combine = (item, secondArr) => {
   let newArr = [];
   secondArr.forEach((secondItem) => {
-    firstArr.forEach((firstItem) => {
-      newArr.push(firstItem + secondItem.toString());
-    });
+    newArr.push(item + secondItem.toString());
+
   });
+
   return newArr;
 }
 
@@ -57,4 +59,8 @@ let combineMany = (firstArr, secondArr, thirdArr) => {
   return newArr;
 }
 
-module.exports = {getPosition, check, combine, combineMany};
+let containsArray = (array) => {
+  return array.some(item => Array.isArray(item));
+}
+
+module.exports = {getPosition, check, combine, containsArray};
